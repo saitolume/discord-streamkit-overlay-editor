@@ -61,7 +61,6 @@ const App: FC = () => {
     const style = iframe.current.contentDocument.querySelector('#custom')
     if (style === null) return
     style.innerHTML = css
-    console.log(style)
   }, [css])
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
@@ -76,7 +75,6 @@ const App: FC = () => {
         style.id = 'custom'
         iframe.current.contentDocument.head.append(style)
       }
-
     },
     [url]
   )
@@ -89,16 +87,29 @@ const App: FC = () => {
         display: 'flex',
       }}
     >
-      <div id="container" style={{ height: '100%', width: '50%' }} />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={url}
-          onChange={(event) => setUrl(event.target.value)}
-        />
-        <button type="submit">select</button>
-        <iframe ref={iframe} style={{ width: '100%', height: '500px' }} />
-      </form>
+      <div
+        style={{
+          height: '100%',
+          width: '50%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: 'flex', width: '100%' }}
+        >
+          <input
+            type="text"
+            value={url}
+            onChange={(event) => setUrl(event.target.value)}
+            style={{ flex: '1 1' }}
+          />
+          <button type="submit">select</button>
+        </form>
+        <div id="container" style={{ marginTop: '0px', height: '100%' }} />
+      </div>
+      <iframe ref={iframe} style={{ width: '50%', height: '100%' }} />
     </div>
   )
 }
