@@ -55,12 +55,17 @@ app.on('will-quit', () => {
   window = null
 })
 
+const allowlist = [
+  'https://streamkit.discord.com/*',
+  'https://www.youtube.com/live_chat',
+]
+
 app
   .whenReady()
   .then(() => {
     session.defaultSession.webRequest.onHeadersReceived(
       {
-        urls: ['https://streamkit.discord.com/*'],
+        urls: allowlist,
       },
       (details, callback) => {
         if (details.responseHeaders === undefined) return callback(details)
